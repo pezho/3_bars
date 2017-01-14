@@ -17,11 +17,14 @@
 Скрипт требует для своей работы установленного интерпретатора Python версии 3.5
 
 Запуск на Linux:
+* скачайте json-файл с http://data.mos.ru/opendata/7710881420-bary и распокуйте его;
+* запустите python bars.py -f <имя файла>;
+* укажите широту и долготу;
 
 ```#!bash
 
-$ python bars.py # possibly requires call of python3 executive instead of just python
-# FIXME вывести пример ответа скрипта
+$ python bars.py -f <paht_to_json_file>
+
 
 ```
 
