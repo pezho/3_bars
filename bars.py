@@ -8,7 +8,7 @@ def load_data(filepath):
         return json.loads(moscow_bars.read())
 
 
-def create_parser():
+def get_file_path():
     parser = argparse.ArgumentParser()
     parser.add_argument('-f', help='path to json file')
     return parser.parse_args().f
@@ -27,10 +27,19 @@ def get_closest_bar(data, longitude, latitude):
                                                float(float(x['Longitude_WGS84']) - longitude))))
 
 
+def show_results(smallest_bar, biggest_bar, closest_bar):
+    print("Самый маленький бар {} расположен по адресу {}.".format(smallest_bar["Name"], smallest_bar["Address"]))
+    print("Самый большой бар {} расположен по адресу {}.".format(biggest_bar["Name"], biggest_bar["Address"]))
+    print("Ближайший бар {} расположен по адресу {}.".format(closest_bar["Name"], closest_bar["Address"]))
+
+
 if __name__ == '__main__':
-    path = create_parser()
+    path = get_file_path()
     moscow_bars = load_data(path)
-    print('The most biggest bar: {}'.format(get_biggest_bar(moscow_bars)))
-    print('The most smallest bar: {}'.format(get_smallest_bar(moscow_bars)))
-    print('Nearest bar is: {}'.format(
-        get_closest_bar(moscow_bars, float(input('Enter your longitude: ')), float(input('Enter your latitude: ')))))
+
+    smallest_bar = get_smallest_bar(moscow_bars)
+    biggest_bar = get_biggest_bar(moscow_bars)
+    closest_bar = get_closest_bar(moscow_bars,
+                                  float(input('Введите широту: ')), float(input('Введите долготу: ')))
+
+    show_results(smallest_bar, biggest_bar, closest_bar)
